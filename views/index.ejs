@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="/stylesheets/style.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet" />
+</head>
+
+<body>
+  <form hidden id="profilform" action="/profile" method="post" enctype="multipart/form-data">
+    <input id="inputprofile" type="file" name="image" />
+  </form>
+
+  <div class=" absolute serverpage hidden w-full h-[100vh] bg-black/75 z-30">
+    <h1 class="kaatdo text-4xl text-white absolute left-[75%] top-[10%]">×</h1>
+    <form class="w-1/3 bg-[#313338] absolute opacity-100 text-center top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] px-3 py-3 text-[#F2F3F5] rounded-md" action="/createserver" method="post" enctype="multipart/form-data">
+      <h1 class="text-2xl mb-[2%] mt-6 font-semibold">Create your own server</h1>
+      <p class="text-sm px-10 mb-8">Your server is where you and your friends hang out. make yours and strt talking.</p>
+      <div class="imgbox w-[100px] h-[100px] bg-red-400 mx-auto mb-6 rounded-full ">
+        <img id="imgboximg" class=" w-full h-full object-cover rounded-full" src="https://t4.ftcdn.net/jpg/04/81/13/43/360_F_481134373_0W4kg2yKeBRHNEklk4F9UXtGHdub3tYk.jpg" alt="">
+      </div>
+  
+      <input id="serverimg" hidden type="file" name="img" onchange="previewImage(event)"/>
+      <input class="flex flex-start bg-[#1E1F22] w-full px-4 py-2 rounded-md my-2" type="text" placeholder="Server Name" name="servername" >
+      <input class="bg-[#4752C4] w-full px-3 py-2 rounded-md text-sm mb-6" id="servercretekaro" type="submit" value="Create Server">
+    </form>
+
+  </div>
+
+  <div class="main w-full h-screen bg-[#1E1F22] text-[#2B2D31] flex text-white">
+    <div class="iconsection p-2 w-[5%] h-full bg-[#1E1F22] flex flex-col gap-3">
+
+      <a href="/">
+        <div class="digscordlo w-[50px] h-[50px]">
+          <img class="w-full h-full object-cover rounded-lg"
+            src="https://static.vecteezy.com/system/resources/previews/006/892/625/original/discord-logo-icon-editorial-free-vector.jpg"
+            alt="" />
+        </div>
+  
+      </a>
+      
+      <!-- <%user.servers.forEach((elm)=>{%>
+        <%=elm._id%>
+        <a href= "/channle/<%=elm._id%>" >
+          <div 
+        class=" w-[45px] bg-white text-[#23A559] h-[45px] flex items-center justify-center rounded-full hover:text-white">
+        <img class="w-full h-full obejct-cover bg-cover rounded-full" src="/images/uploads/<%=elm.serverimg%>" alt="">
+      </div>
+        </a>
+      <%})%>
+       -->
+
+       <%creteserver.forEach(single=>{%>
+        <a href= "/channle/<%=single._id%>" >
+          <div 
+        class=" w-[45px] bg-white text-[#23A559] h-[45px] flex items-center justify-center rounded-full hover:text-white">
+        <img class="w-full h-full obejct-cover bg-cover rounded-full" src="/images/uploads/<%=single.serverimg%>" alt="">
+      </div>
+        </a>
+       <%})%>
+       
+
+      <div 
+        class="discordlog w-[45px] bg-[#313338] h-[45px] flex items-center justify-center text-[#23A559] rounded-full hover:bg-[#23A559] hover:text-white">
+        <i class="ri-add-circle-line text-2xl"></i>
+      </div>
+      <div
+        class=" w-[45px] bg-[#313338] text-[#23A559] h-[45px] flex items-center justify-center rounded-full hover:bg-[#23A559] hover:text-white">
+        <i class="ri-compass-3-line text-2xl"></i>
+      </div>
+      <div
+        class=" w-[45px] bg-[#313338] text-[#23A559] h-[50px] flex items-center justify-center rounded-full hover:bg-[#23A559] hover:text-white">
+        <a href="/logout"><i class="ri-logout-box-line text-2xl"></i> </a>
+      </div>
+    </div>
+    <div  class="main-part1 w-[94%] h-full flex">
+      <div class="gropshowsection bg-[#2B2D31] w-[25%] h-full px-3 py-3">
+        <!-- kisse tune baat ki hai -->
+        <div class="searchToTalk w-full">
+          <input type="text" placeholder="Find or Start a conversation"
+            class="bg-[#1E1F22] text-[#23A559] text-sm px-3 rounded-md py-2 w-full" />
+          <hr class="my-3" />
+        </div>
+        <div class="friendArea w-full flex bg-[#35373C] py-1 px-2 rounded-md items-center">
+          <i class="ri-team-line mr-3 text-xl"></i>
+          <h1 class="text-xl font-semibold">Friends</h1>
+        </div>
+        <div class="directmsg w-full h-[84%] mt-2 relative">
+          <h1 class="mb-2 text-sm text-[#9CA3AF] font-semibold">
+            DIRECT MESSAGES
+          </h1>
+          <div class="chatinguser flex flex-col gap-2">
+            <%messgaperson.following.forEach(elm=>{%>
+              <!-- <%=elm%> -->
+              <div onclick="setcurrentchat('<%=elm.profilepic%>' , '<%=elm.name%>', '<%=elm._id%>')" class="chateduser w-full h-max flex items-center bg-[#313338] py-1 px-2 rounded-md">
+                <div class="profileimg w-[45px] h-[45px] bg-[#1E1F22] rounded-full">
+                  <img class="w-full h-full object-cover rounded-full" src="/images/uploads/<%=elm.profilepic%>" alt="">
+                </div>
+                <h1 class="ml-3"><%=elm.name%></h1>
+              </div>
+            <%})%>
+          </div>
+          <div class="chateduser absolute bottom-0  w-full h-max flex items-center bg-[#313238] py-1 px-2 rounded-md">
+            <div class="profileimg bg-cover w-[45px] h-[45px] bg-[#1E1F22] rounded-full relative">
+              <img class="w-full h-full rounded-full" src="/images/uploads/<%=user.profilepic%>" alt="">
+              <i id="profiledit" class="ri-pencil-fill absolute left-[80%] top-[5%] bg-black rounded-full px-1"></i>
+            </div>
+            <h1 class="ml-3">
+              <%=user.name%>
+            </h1>
+          </div>
+        </div>
+      </div>
+      <div class="msgarea w-[50%] h-full bg-[#313338]">
+        <img src="" alt="">
+        <!-- kisse tu msg karega -->
+        <div class="toparea flex w-full items-center justify-center gap-4 mx-auto py-4">
+          <div class="content">
+            <h1>All</h1>
+          </div>
+          <div class="content">
+            <h1>Pending</h1>
+          </div>
+          <div class="content">
+            <h1>Blocked</h1>
+          </div>
+          <div class="content">
+            <h1 onclick="opensearcharea()" class="bg-[#248046] px-3 rounded-md">
+              Add Frined
+            </h1>
+          </div>
+        </div>
+        <div class="chatarea w-full h-[91%] bg-[#313338] relative flex items-center justify-center">
+          <img src="/images/Screenshot 2024-03-04 012113.png" alt="" />
+          <div class="addfriend hidden absolute top-0 left-0 w-full h-full p-4">
+            <div class="addfrinesxlas flex items-center justify-between">
+              <h1>ADD FRIEND</h1>
+              <i id="closeaddfriend" class="ri-close-line"></i>
+            </div>
+            <p class="text-xs">you can addd frined with their Diecord Username</p>
+            <div class="bg-[#2B2D31] p-2 flex justify-between my-2 rounded-md ">
+              <input class="bg-transparent w-full text-sm px-2 outline-none" type="text" id="frinedname"
+                placeholder="you can addd frined with their Diecord Username">
+
+            </div>
+            <div class="searchedfriend">
+
+            </div>
+          </div>
+          <div class="areatochat hidden absolute top-0 left-0 w-full h-full">
+            <div class="topuserinfo w-full h-[60px] bg-[#1E1F22] flex items-center px-3">
+              <div class="userprofile w-[50px] h-[50px] rounded-full bg-gray-500">
+                <img class="w-full areatochatimg h-full object-cover rounded-full" src="" alt="">
+              </div>
+              <div class="username areatochatname ml-3">username</div>
+            </div>
+            <div class="messsagearea w-full h-[82%] bg-[#313338] flex flex-col block gap-2 p-2">
+              <div class="bg-[#1E1F22] py-1 px-2 rounded-t-md rounded-br-md w-max">revcives msg</div>
+              <div class="bg-[#1E1F22] py-1 px-2 rounded-t-md rounded-bl-md w-max ml-auto">send message</div>
+            </div>
+            <div class="inputarea flex w-full">
+              <input id="inputmsg" class="w-[85%] py-[11px] rounded-md px-2 bg-[#1E1F22] text-white" type="text"
+                placeholder="Type a message..." />
+              <input onclick="sendmessage()" class="w-[15%] py-[10px] px-2 bg-[#248046]" type="submit" value="Send" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="onlinefreiends p-3 w-[25%] bg-[#2B2D31] h-full">
+        <!-- kon kon online hai -->
+        <h1 class="bg-[#313338] px-2 py-1 rounded-md">Online Friends</h1>
+
+        <div class="friends w-full py-2">
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.7/axios.min.js"
+    integrity="sha512-NQfB/bDaB8kaSXF8E77JjhHG5PM6XVRxvHzkZiwl3ddWCEPBa23T76MuWSwAJdMGJnmQqM0VeY9kFszsrBEFrQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>
+    // console.log();
+
+    function opensearcharea() {
+      // alert("akldsjaslk")
+      document.querySelector(".areatochat").classList.add("hidden");
+      document.querySelector(".addfriend").classList.remove("hidden");
+    }
+
+
+    document.querySelector("#frinedname").addEventListener('keyup', (e) => {
+      const names = e.target.value
+      // console.log(names);
+      axios.get(`/sendfriends/${names}`, { parmas: names })
+        .then(function (response) {
+          console.log(response);
+          document.querySelector(".searchedfriend").innerHTML = ""
+
+          
+
+          if (response.data.length > 0) {
+            // console.log("gand maras");
+              response.data.forEach((data) => {
+                // console.log(data.follower);
+                if(!data.follower.includes('<%=user.id%>')){
+                  // console.log("hai vbe");
+                  console.log(data.profilepic);
+                  const template = `<div class="searchfrnd w-full h-max flex items-center bg-[#2B2D31] py-1 px-2 rounded-md justify-between">
+                  <div class="userinfosearch flex items-center ">
+                    <div class="profileimg w-[45px] h-[45px] bg-[#1E1F22] rounded-full">
+                      <img class="w-full h-full object-cover rounded-full" src="/images/uploads/${data.profilepic}" alt="">
+                    </div>
+                    <h1 class="ml-3">${data.name}</h1>
+                  </div>
+                  <button id="btn${data._id}" class="bg-[#248046] px-2 py-1 rounded-md" onclick="addfrined('${data._id}')">Add Friend</button>
+                  
+                </div>`
+                document.querySelector(".searchedfriend").innerHTML += template
+                }
+              else{
+                const template = `<div class="searchfrnd w-full h-max flex items-center bg-[#2B2D31] py-1 px-2 rounded-md justify-between">
+                <div class="userinfosearch flex items-center ">
+                  <div class="profileimg w-[45px] h-[45px] bg-[#1E1F22] rounded-full">
+                    <img class="w-full h-full object-cover rounded-full" src="/images/uploads/${data.profilepic}" alt="">
+                  </div>
+                  <h1 class="ml-3">${data.name}</h1>
+                </div>
+                <button id="btn${data._id}" class="bg-red-400 px-2 py-1 rounded-md" onclick="removefrined('${data._id}')">Remove Friend</button>
+                
+              </div>`
+              document.querySelector(".searchedfriend").innerHTML += template
+              }
+
+              
+
+              
+
+            })
+          } else {
+            // console.log("rajusd");
+            document.querySelector(".searchedfriend").innerHTML = ""
+            const template = `<div class="searchfrnd w-full h-max flex items-center bg-[#2B2D31] py-1 px-2 rounded-md">
+                <h1 class="ml-3">no user found</h1>
+              </div>`
+
+            document.querySelector(".searchedfriend").innerHTML += template
+
+          }
+
+        }).catch(function (error) {
+          document.querySelector(".searchedfriend").innerHTML = ""
+          const template = `<div class="searchfrnd w-full h-max flex items-center bg-[#2B2D31] py-1 px-2 rounded-md">
+                <h1 class="ml-3">Please provide username</h1>
+              </div>`
+
+          document.querySelector(".searchedfriend").innerHTML += template
+        })
+    })
+
+    function addfrined(userid) {
+      // alert("userid hai " + userid)
+
+      axios.get(`/addfriends/${userid}`).then(res=>{
+        console.log(res.data);
+        const changebtn = document.querySelector(`#btn${userid}`)
+        if(changebtn.textContent === 'Add Friend'){
+          changebtn.textContent = 'Remove Friend'
+          changebtn.classList.remove("bg-[#248046]")
+          changebtn.classList.add('bg-red-500')
+          changebtn.removeAttribute("onclick")
+          changebtn.setAttribute("onclick", `removefriend(${userid})`)
+       
+        }
+      })
+
+    }
+
+    function removefrined(userid){
+      axios.get(`/remove/${userid}`).then(res=>{
+        const changebtn = document.querySelector(`#btn${userid}`)
+        if(changebtn.textContent === 'Remove Friend'){
+          changebtn.textContent = 'Add Friend'
+          changebtn.classList.remove("bg-red-400")
+          changebtn.classList.add('bg-[#248046]')
+          
+        }
+      })
+
+    }
+
+
+    document.querySelector("#profiledit").addEventListener("click", ()=>{
+      document.querySelector("#inputprofile").click()
+    })
+    document.querySelector("#inputprofile").addEventListener("change", ()=>{
+      document.querySelector("#profilform").submit()
+    })
+
+
+  </script>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io();
+
+    const currentuser = '<%=user.id%>'
+    let reciver = null
+    // console.log(currentuser);
+
+    socket.emit("newuser", currentuser)
+
+    socket.on("newuserishere", userinfo => {
+      // console.log(userinfo);
+      onlineuser(userinfo.name, userinfo.userid , userinfo.profile)
+    })
+
+    function onlineuser(username, userid, profile) {
+      if(!document.getElementById(`online${username}`)) {
+
+        var  clutter = ""
+      clutter += `<div onclick="setcurrentchat('${profile}', '${username}', '${userid}')" id="online${userid}" class="friend w-full bg-[#313338] py-1 px-1 rounded-md flex items-center">
+            <div class="frndimg w-[50px] h-[50px] bg-black rounded-full">
+              <img class="w-full h-full object-cover rounded-full" src="/images/uploads/${profile}" alt=""></div>
+            <h1 class="ml-2">${username}</h1>
+          </div>`
+
+          document.querySelector(".friends").innerHTML = clutter
+      
+        }
+    }
+
+    function setcurrentchat(profile, username, userid){
+      // console.log(profile +  username + userid);
+
+      document.querySelector('.areatochat').classList.remove("hidden")
+      document.querySelector('.areatochatimg').setAttribute("src", `/images/uploads/${profile}`)
+      document.querySelector('.areatochatname').textContent = username
+
+      reciver= userid;
+      getallmsg = {
+        reciver,
+        currentuser
+      }
+
+      // console.log(getallmsg);
+      socket.emit("getallchats", getallmsg)
+    }
+
+    function sendmessage(){
+
+      const msg = document.querySelector("#inputmsg").value
+      const template = `
+      <div class="bg-[#1E1F22] py-1 px-2 rounded-t-md rounded-bl-md w-max ml-auto">${msg}</div>
+      `
+      document.querySelector(".messsagearea").innerHTML+= template
+
+      socket.emit("sendermsg", {reciver, currentuser, msg})
+      document.querySelector("#inputmsg").value = ""
+    }
+
+    function sendmsg(msg){
+      // const msg = document.querySelector("#inputmsg").value
+      const template = `
+      <div class="bg-[#1E1F22] py-1 px-2 rounded-t-md rounded-bl-md w-max ml-auto">${msg}</div>
+      `
+      document.querySelector(".messsagearea").innerHTML+= template
+    }
+    function recivemsg(msg){
+      // const msg = document.querySelector("#inputmsg").value
+      const template = `
+      <div class="bg-[#1E1F22] py-1 px-2 rounded-t-md rounded-br-md w-max">${msg}</div>
+      `
+      document.querySelector(".messsagearea").innerHTML+= template
+    }
+
+    socket.on("recivermsg", msg=>{
+      // /(msg)\
+      recivemsg(msg)
+      // console.log(msg);
+    })
+   
+   socket.on("allchats", allmsg=>{
+        allmsg.forEach(singlemsg=>{
+            if(singlemsg.sender === currentuser){
+                sendmsg(singlemsg.msg)
+            }else{
+                recivemsg(singlemsg.msg)
+            }
+        })
+       })
+    
+
+       socket.on("onlychat",allmessage=>{
+      document.querySelector(".chatarea").innerHTML = ""
+      allmessage.forEach(msg=>{
+        if(loggedinChatUserId == msg.sender){
+          sendmsg(msg.msg)
+        }else{
+          recivemsg(msg.msg)
+        }
+      })
+    } )
+
+  </script>
+  <script>
+    document.querySelector(".imgbox").addEventListener("click", function(){
+      document.querySelector("#serverimg").click()
+    })
+
+    document.querySelector(".discordlog").addEventListener("click", ()=>{
+      document.querySelector(".serverpage").classList.remove("hidden")
+
+    })
+
+    document.querySelector(".kaatdo").addEventListener("click",()=>{
+      document.querySelector(".serverpage").classList.add("hidden")
+    })
+
+    document.querySelector("#servercretekaro").addEventListener("click",()=>{
+      document.querySelector(".serverpage form").submit()
+    })
+    function previewImage(event) {
+      const input = event.target;
+      const preview = document.getElementById('imgboximg');
+
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+
+        // console.log(reader);
+        reader.onload = function (e) {
+          preview.src = e.target.result;
+          preview.style.display = 'block';
+        };
+
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+
+    document.querySelector("#closeaddfriend").addEventListener("click", () => {
+      document.querySelector(".addfrined").classList.add("hidden")
+
+    })
+  </script>
+
+</body>
+
+</html>
