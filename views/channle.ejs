@@ -39,7 +39,7 @@
         <a href= "/channle/<%=single._id%>" >
           <div 
         class=" w-[45px] bg-white text-[#23A559] h-[45px] flex items-center justify-center rounded-full hover:text-white">
-        <img class="w-full h-full obejct-cover bg-cover rounded-full" src="/images/uploads/<%=single.serverimg%>" alt="">
+        <img class="w-full h-full obejct-cover bg-cover rounded-full" src="<%=single.serverimg%>" alt="">
       </div>
         </a>
        <%})%>
@@ -105,7 +105,7 @@
         </div> -->
       </div>
       <div class="channleright w-[75%] h-screen bg-[#313338] relative flex items-center justify-center">
-        <img class="object-cover flex items-center justify-center" src="/images/Screenshot 2024-03-04 012113.png" alt="">
+        <img class="object-cover flex items-center justify-center" src="https://ik.imagekit.io/gunj6f9gb/gray-user-profile-icon-png-fP8Q1P.png?updatedAt=1710224268267" alt="">
 
         <div class="addfrined bg-black/50 hidden absolute top-0 left-0 w-full h-full p-4">
 
@@ -191,7 +191,7 @@
               const template = `<div class="searchfrnd w-full h-max flex items-center bg-[#2B2D31] py-1 px-2 rounded-md justify-between">
                   <div class="userinfosearch flex items-center ">
                     <div class="profileimg w-[45px] h-[45px] bg-[#1E1F22] rounded-full">
-                      <img class="w-full h-full object-cover rounded-full" src="/images/uploads/${elm.profilepic}" alt="">
+                      <img class="w-full h-full object-cover rounded-full" src="${elm.profilepic}" alt="">
                     </div>
                     <h1 class="ml-3">${elm.name}</h1>
                   </div>
@@ -259,7 +259,7 @@
         var clutter = ""
         clutter += `<div onclick="setcurrentchat(${profile})" id="online${userid}" class="friend w-full bg-[#313338] py-1 px-1 rounded-md flex items-center">
             <div class="frndimg w-[50px] h-[50px] bg-black rounded-full">
-              <img class="w-full h-full object-cover rounded-full" src="/images/uploads/${profile}" alt=""></div>
+              <img class="w-full h-full object-cover rounded-full" src="${profile}" alt=""></div>
             <h1 class="ml-2">${username}</h1>
           </div>`
 
@@ -272,7 +272,7 @@
     //   // console.log(profile +  username + userid);
 
     //   document.querySelector('.areatochat').classList.remove("hidden")
-    //   document.querySelector('.areatochatimg').setAttribute("src", `/images/uploads/${profile}`)
+    //   document.querySelector('.areatochatimg').setAttribute("src", `${profile}`)
     //   document.querySelector('.areatochatname').textContent = username
 
     //   reciver = userid;
@@ -287,7 +287,7 @@
 
     function setgroupchat(username, grpid) {
       document.querySelector('.areatochat').classList.remove("hidden")
-      // document.querySelector('.areatochatimg').setAttribute("src", `/images/uploads/${profile}`)
+      // document.querySelector('.areatochatimg').setAttribute("src", `${profile}`)
       document.querySelector('.areatochatname').textContent = username
       reciver = grpid;
       getallmsg = {

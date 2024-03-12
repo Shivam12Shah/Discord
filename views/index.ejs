@@ -45,7 +45,7 @@
         <a href= "/channle/<%=elm._id%>" >
           <div 
         class=" w-[45px] bg-white text-[#23A559] h-[45px] flex items-center justify-center rounded-full hover:text-white">
-        <img class="w-full h-full obejct-cover bg-cover rounded-full" src="/images/uploads/<%=elm.serverimg%>" alt="">
+        <img class="w-full h-full obejct-cover bg-cover rounded-full" src="<%=elm.serverimg%>" alt="">
       </div>
         </a>
       <%})%>
@@ -55,7 +55,7 @@
         <a href= "/channle/<%=single._id%>" >
           <div 
         class=" w-[45px] bg-white text-[#23A559] h-[45px] flex items-center justify-center rounded-full hover:text-white">
-        <img class="w-full h-full obejct-cover bg-cover rounded-full" src="/images/uploads/<%=single.serverimg%>" alt="">
+        <img class="w-full h-full obejct-cover bg-cover rounded-full" src="<%=single.serverimg%>" alt="">
       </div>
         </a>
        <%})%>
@@ -95,7 +95,7 @@
               <!-- <%=elm%> -->
               <div onclick="setcurrentchat('<%=elm.profilepic%>' , '<%=elm.name%>', '<%=elm._id%>')" class="chateduser w-full h-max flex items-center bg-[#313338] py-1 px-2 rounded-md">
                 <div class="profileimg w-[45px] h-[45px] bg-[#1E1F22] rounded-full">
-                  <img class="w-full h-full object-cover rounded-full" src="/images/uploads/<%=elm.profilepic%>" alt="">
+                  <img class="w-full h-full object-cover rounded-full" src="<%=elm.profilepic%>" alt="">
                 </div>
                 <h1 class="ml-3"><%=elm.name%></h1>
               </div>
@@ -103,7 +103,7 @@
           </div>
           <div class="chateduser absolute bottom-0  w-full h-max flex items-center bg-[#313238] py-1 px-2 rounded-md">
             <div class="profileimg bg-cover w-[45px] h-[45px] bg-[#1E1F22] rounded-full relative">
-              <img class="w-full h-full rounded-full" src="/images/uploads/<%=user.profilepic%>" alt="">
+              <img class="w-full h-full rounded-full" src="<%=user.profilepic%>" alt="">
               <i id="profiledit" class="ri-pencil-fill absolute left-[80%] top-[5%] bg-black rounded-full px-1"></i>
             </div>
             <h1 class="ml-3">
@@ -132,7 +132,7 @@
           </div>
         </div>
         <div class="chatarea w-full h-[91%] bg-[#313338] relative flex items-center justify-center">
-          <img src="/images/Screenshot 2024-03-04 012113.png" alt="" />
+          <img src="https://ik.imagekit.io/gunj6f9gb/gray-user-profile-icon-png-fP8Q1P.png?updatedAt=1710224268267" alt="" />
           <div class="addfriend hidden absolute top-0 left-0 w-full h-full p-4">
             <div class="addfrinesxlas flex items-center justify-between">
               <h1>ADD FRIEND</h1>
@@ -211,7 +211,7 @@
                   const template = `<div class="searchfrnd w-full h-max flex items-center bg-[#2B2D31] py-1 px-2 rounded-md justify-between">
                   <div class="userinfosearch flex items-center ">
                     <div class="profileimg w-[45px] h-[45px] bg-[#1E1F22] rounded-full">
-                      <img class="w-full h-full object-cover rounded-full" src="/images/uploads/${data.profilepic}" alt="">
+                      <img class="w-full h-full object-cover rounded-full" src="${data.profilepic}" alt="">
                     </div>
                     <h1 class="ml-3">${data.name}</h1>
                   </div>
@@ -224,7 +224,7 @@
                 const template = `<div class="searchfrnd w-full h-max flex items-center bg-[#2B2D31] py-1 px-2 rounded-md justify-between">
                 <div class="userinfosearch flex items-center ">
                   <div class="profileimg w-[45px] h-[45px] bg-[#1E1F22] rounded-full">
-                    <img class="w-full h-full object-cover rounded-full" src="/images/uploads/${data.profilepic}" alt="">
+                    <img class="w-full h-full object-cover rounded-full" src="${data.profilepic}" alt="">
                   </div>
                   <h1 class="ml-3">${data.name}</h1>
                 </div>
@@ -323,7 +323,7 @@
         var  clutter = ""
       clutter += `<div onclick="setcurrentchat('${profile}', '${username}', '${userid}')" id="online${userid}" class="friend w-full bg-[#313338] py-1 px-1 rounded-md flex items-center">
             <div class="frndimg w-[50px] h-[50px] bg-black rounded-full">
-              <img class="w-full h-full object-cover rounded-full" src="/images/uploads/${profile}" alt=""></div>
+              <img class="w-full h-full object-cover rounded-full" src="${profile}" alt=""></div>
             <h1 class="ml-2">${username}</h1>
           </div>`
 
@@ -336,7 +336,7 @@
       // console.log(profile +  username + userid);
 
       document.querySelector('.areatochat').classList.remove("hidden")
-      document.querySelector('.areatochatimg').setAttribute("src", `/images/uploads/${profile}`)
+      document.querySelector('.areatochatimg').setAttribute("src", `${profile}`)
       document.querySelector('.areatochatname').textContent = username
 
       reciver= userid;

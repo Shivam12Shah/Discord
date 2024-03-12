@@ -9,8 +9,18 @@ const serverModel = require("./servers");
 const bodyParser = require('body-parser');
 const textChannleModel = require("./textchannle")
 router.use(bodyParser.json());
-/* GET home page. */
+
 // google statergy
+
+var ImageKit = require("imagekit");
+
+const fs = require("fs");
+const { log } = require('console');
+var imagekit = new ImageKit({
+  publicKey: process.env['public_key'],
+  privateKey: process.env['private_key'],
+  urlEndpoint: process.env['urlEndpoint']
+});
 
 router.get('/login', function (req, res, next) {
   res.render('login');
@@ -77,10 +87,25 @@ res.render('index', { user, messgaperson, creteserver});
 });
 
 router.post('/profile', isLoggedIn, upload.single('image'), async function (req, res, next) {
-  const user = await userModel.findById(req.user.id)
-  user.profilepic = req.file.filename
-  await user.save();
-  res.redirect("/")
+  // const user = await userModel.findById(req.user.id)
+
+  fs.readFile(req.file.path, function (err, data) {
+    // console.log(data);
+    if (err) throw err; // Fail if the file can't be read.
+    imagekit.upload({
+      file: data, //required
+      fileName: req.file.filename, //required
+      tags: ["tag1", "tag2"]
+    },async function (error, result) {
+      if (error) console.log(error);
+      else {
+        var users = await userModel.findOneAndUpdate({_id:req.user.id},{profilepic:result.url})
+        res.redirect("/")
+      
+      };
+    });
+  });
+  // user.profilepic = req.file.filename
 })
 
 router.get("/sendfriends/:name", isLoggedIn, async function (req, res) {
@@ -153,15 +178,32 @@ router.get("/channle/:server", isLoggedIn, async (req, res, next) => {
 router.post("/createserver", isLoggedIn, upload.single('img'), async (req, res, next) => {
   const user = await userModel.findById(req.user.id)
 
-  const baby = await serverModel.create({
-    serverimg: req.file.filename,
-    servername: req.body.servername,
-    servercreator: user._id
-  })
 
-  user.servers.push(baby._id)
-  await user.save();
-  res.redirect(`/channle/${baby._id}`)
+  fs.readFile(req.file.path, function (err, data) {
+    // console.log(data);
+    if (err) throw err; // Fail if the file can't be read.
+    imagekit.upload({
+      file: data, //required
+      fileName: req.file.filename, //required
+      tags: ["tag1", "tag2"]
+    },async function (error, result) {
+      if (error) console.log(error);
+      else {
+        var user = await userModel.findOneAndUpdate({_id: req.user.id},{profilepic:result.url})
+        
+        const baby = await serverModel.create({
+          serverimg: result.url,
+          servername: req.body.servername,
+          servercreator: user._id
+        })
+        user.servers.push(baby._id)
+        await user.save();
+        res.redirect(`/channle/${baby._id}`)
+      };
+    });
+  })
+  
+
 })
 // var currentRoute = window.location.pathname;
 router.post("/createchannle", isLoggedIn, async (req, res, next) => {

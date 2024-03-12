@@ -23,7 +23,7 @@ var userSchema = mongoose.Schema({
     }
   ],
   profilepic:{
-    default:"channels4_profile.jpg",
+    default:"https://ik.imagekit.io/gunj6f9gb/gray-user-profile-icon-png-fP8Q1P.png?updatedAt=1710224268267",
     type:String
   },
   servers:[
