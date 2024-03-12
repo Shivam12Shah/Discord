@@ -1,9 +1,10 @@
 const mongoose = require("mongoose")
+require('dotenv').config()
 
 mongoose.set("strictQuery", false)
 // if true karenga to mai iske alaw aor kuch nahi daal sakta
 // or ager false hai to mai bahut cuhc daat skat ahun isme
-mongoose.connect("mongodb://127.0.0.1:27017/Discordrs")
+mongoose.connect(process.env['MOGODB_CONNECT'])
 
 var userSchema = mongoose.Schema({
   name:String,
