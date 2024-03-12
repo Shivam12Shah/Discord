@@ -1,5 +1,5 @@
 const mongoose = require("mongoose")
-require('dotenv').config()
+require('dotenv').config({path : "./.env"})
 
 mongoose.set("strictQuery", false)
 // if true karenga to mai iske alaw aor kuch nahi daal sakta
