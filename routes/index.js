@@ -67,7 +67,7 @@ router.get('/logout', function (req, res, next) {
 router.get('/', async function (req, res, next) {
   // console.log(req.user);
   if (!req.user) {
-    return return res.redirect("/login")
+    return res.redirect("/login")
   }
   const user = await userModel.findById(req.user.id).populate("servers").populate("following")
   const messgaperson = await userModel.findById(req.user.id).populate('following')
