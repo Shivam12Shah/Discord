@@ -153,7 +153,7 @@ router.get("/remove/:name", isLoggedIn, async function (req, res) {
 router.get("/channle/:server", isLoggedIn, async (req, res, next) => {
  
   if (!req.user) {
-    return return res.redirect("/login")
+    return res.redirect("/login")
   }
   const user = await userModel.findById(req.user.id).populate("servers").populate("following")
   // console.log(req.params.server);
