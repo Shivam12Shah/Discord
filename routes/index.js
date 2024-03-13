@@ -23,7 +23,7 @@ var imagekit = new ImageKit({
 });
 
 router.get('/login', function (req, res, next) {
-  res.render('login');
+  return res.render('login');
 })
 
 passport.use(new GoogleStrategy({
@@ -60,14 +60,14 @@ router.get('/oauth2/redirect/google', passport.authenticate('google', {
 router.get('/logout', function (req, res, next) {
   req.logout(function (err) {
     if (err) { return next(err); }
-    res.redirect('/login');
+    return res.redirect('/login');
   });
 });
 
 router.get('/', async function (req, res, next) {
   // console.log(req.user);
   if (!req.user) {
-    return res.redirect("/login")
+    return return res.redirect("/login")
   }
   const user = await userModel.findById(req.user.id).populate("servers").populate("following")
   const messgaperson = await userModel.findById(req.user.id).populate('following')
@@ -83,7 +83,7 @@ router.get('/', async function (req, res, next) {
   })
   // console.log(creteserver);
   
-res.render('index', { user, messgaperson, creteserver});
+return res.render('index', { user, messgaperson, creteserver});
 });
 
 router.post('/profile', isLoggedIn, upload.single('image'), async function (req, res, next) {
@@ -100,7 +100,7 @@ router.post('/profile', isLoggedIn, upload.single('image'), async function (req,
       if (error) console.log(error);
       else {
         var users = await userModel.findOneAndUpdate({_id:req.user.id},{profilepic:result.url})
-        res.redirect("/")
+        return res.redirect("/")
       
       };
     });
@@ -118,7 +118,7 @@ router.get("/sendfriends/:name", isLoggedIn, async function (req, res) {
 
   })
   // console.log(nreuser);
-  res.json(nreuser)
+  return res.json(nreuser)
 })
 
 router.get("/addfriends/:name", isLoggedIn, async function (req, res) {
@@ -133,7 +133,7 @@ router.get("/addfriends/:name", isLoggedIn, async function (req, res) {
   }
   // console.log( user, request);
 
-  res.json(user)
+  return res.json(user)
 })
 
 router.get("/remove/:name", isLoggedIn, async function (req, res) {
@@ -148,12 +148,12 @@ router.get("/remove/:name", isLoggedIn, async function (req, res) {
   }
   // console.log( user, request);
 
-  res.json(user)
+  return res.json(user)
 })
 router.get("/channle/:server", isLoggedIn, async (req, res, next) => {
  
   if (!req.user) {
-    return res.redirect("/login")
+    return return res.redirect("/login")
   }
   const user = await userModel.findById(req.user.id).populate("servers").populate("following")
   // console.log(req.params.server);
@@ -170,7 +170,7 @@ router.get("/channle/:server", isLoggedIn, async (req, res, next) => {
   })
   // console.log(creteserver)
   // console.log(creteserver);
-  res.render(`channle`, { user, server, creteserver });
+  return res.render(`channle`, { user, server, creteserver });
 })
 
 
@@ -198,7 +198,7 @@ router.post("/createserver", isLoggedIn, upload.single('img'), async (req, res, 
         })
         user.servers.push(baby._id)
         await user.save();
-        res.redirect(`/channle/${baby._id}`)
+        return res.redirect(`/channle/${baby._id}`)
       };
     });
   })
@@ -223,7 +223,7 @@ router.post("/createchannle", isLoggedIn, async (req, res, next) => {
   server.textchannels.push(newTextChannle._id)
   await server.save()
 
-  res.redirect(`/channle/${channleid}`)
+  return res.redirect(`/channle/${channleid}`)
 })
 
 router.get("/addintochannle", isLoggedIn, async (req, res) => {
@@ -244,11 +244,11 @@ router.get("/addintochannle", isLoggedIn, async (req, res) => {
   if (!channle.members.includes(details.user)) {
     channle.members.push(details.user)
     await channle.save()
-    res.json(channle)
+    return res.json(channle)
 
   }
   else {
-    res.json(channle)
+    return res.json(channle)
   }
 })
 
@@ -258,7 +258,7 @@ function isLoggedIn(req, res, next) {
     return next();
   }
   else {
-    res.redirect('/login')
+    return res.redirect('/login')
   }
 }
 
